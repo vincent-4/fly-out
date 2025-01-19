@@ -4,14 +4,9 @@
 
 Flight-optimized hackathon discovery platform. Enables global hackathon search based on flight costs and availability. Built with modern web technologies and comprehensive monitoring systems.
 
-![Flyout](images/homePage.jpeg)
-
 ## System Design
 
-Production-grade monitoring and deployment architecture. Next.js/React frontend with CSS Modules. Typography through Google Fonts. Full performance monitoring stack: k6, Prometheus, Grafana. Docker-based deployment with Compose orchestration.
-
-Testing framework handles 20 VUs for average load, 100 VUs for stress testing. Performance thresholds: sub-1% error rate, sub-500ms p95 response times. Real-time metrics visualization with 5-second dashboard updates.
-
+Production-grade monitoring and deployment architecture. Next.js/React frontend with CSS Modules.
 Core APIs:
 - Search functionality
 - Data aggregation
