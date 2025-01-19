@@ -1,28 +1,40 @@
 export default async function handler(req, res) {
-    //address = req.address;
-    let token = await getAccessToken();
-    token = token["access_token"];
-    const longitude = "-0.44161";
-    const latitude = "51.57285";
-    const url = `https://test.api.amadeus.com/v1/reference-data/locations/airports?latitude=${latitude}&longitude=${longitude}`;
+    try {
+        if (req.method !== "GET") {
+            return res.status(405).json({ error: "Only GET method is accepted" });
+        }
 
-    async function fetchAirportData(url) {
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        // waits until the request completes...
-        const jsonResponse = await response.json();
+        const { latitude, longitude } = req.query;
+        if (!latitude || !longitude) {
+            return res.status(400).json({ error: "Latitude and longitude are required" });
+        }
 
-        return jsonResponse;
+        let token = await getAccessToken();
+        token = token["access_token"];
+        
+        const url = `https://test.api.amadeus.com/v1/reference-data/locations/airports?latitude=${latitude}&longitude=${longitude}`;
+
+        async function fetchAirportData(url) {
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            // waits until the request completes...
+            const jsonResponse = await response.json();
+
+            return jsonResponse;
+        }
+
+        const response = await fetchAirportData(url);
+        //console.log(response)
+        //console.log('Token value:', token)
+        res.status(200).send(response);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "An error occurred while fetching airport data" });
     }
-
-    const response = await fetchAirportData(url);
-    //console.log(response)
-    //console.log('Token value:', token)
-    res.status(200).send(response);
 }
 
 async function getAccessToken() {

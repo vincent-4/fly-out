@@ -1,7 +1,5 @@
 import React, { useState, useRef } from "react";
 import styles from "./SearchBar.module.css";
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
 import LocationSearchBar from "./LocationSearchBar";
 
 const initialState = {
@@ -18,6 +16,7 @@ const SearchBar = (props) => {
     console.log(startDate);
     const searchData = async () => {
         if (!address.valid) return;
+        props.setIsLoading(true);
         const response = await fetch(`/api/aggregate`, {
             method: "POST",
             body: JSON.stringify({
@@ -30,6 +29,7 @@ const SearchBar = (props) => {
         });
         const data = await response.json();
         props.setHackDate(data);
+        props.setIsLoading(false);
     };
 
     return (
@@ -49,7 +49,7 @@ const SearchBar = (props) => {
                     </div>
                     <div className={styles.conditionInput2}>
                         <label htmlFor="stateDate" className={styles.label}>
-                            Start Date
+                            Hackathon Start Date
                         </label>
                         <input
                             id="startDate"
@@ -57,12 +57,13 @@ const SearchBar = (props) => {
                             className={styles.datePick2}
                             value={startDate}
                             onChange={(e) => setStartDate(e.target.value)}
+                            aria-label="Start date for hackathon search"
                         />
                     </div>
                     <div className={styles.conditionInput3}>
                         <div style={{ width: "80%" }}>
                             <label htmlFor="endDate" className={styles.label}>
-                                End Date
+                                Hackathon End Date
                             </label>
                             <input
                                 id="endDate"
@@ -70,6 +71,7 @@ const SearchBar = (props) => {
                                 className={styles.datePick3}
                                 value={endDate}
                                 onChange={(e) => setEndDate(e.target.value)}
+                                aria-label="End date for hackathon search"
                             />
                         </div>
                     </div>

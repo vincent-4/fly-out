@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./src/tests/grafana-dashboard.json:/etc/grafana/provisioning/dashboards/k6-dashboard.json
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    networks:
+      - k6-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./src/tests/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - k6-network
+
+  k6:
+    image: grafana/k6:latest
+    ports:
+      - "6565:6565"
+    environment:
+      - K6_PROMETHEUS_RW_SERVER_URL=http://prometheus:9090/api/v1/write
+      - K6_OUT=prometheus
+    volumes:
+      - ./src/tests:/tests
+    networks:
+      - k6-network
+    depends_on:
+      - prometheus
+
+networks:
+  k6-network:
+    driver: bridge 

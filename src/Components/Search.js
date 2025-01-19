@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styles from "./Search.module.css";
 
 import Modal from "./UI/Modal";
@@ -9,11 +9,11 @@ import { Location, Date, Price, Link } from "./UI/Icons";
 
 const dummyData = {
     hackathon_info: {
-        name: "Hacknyu",
+        name: "Sample Hackathon",
         imageURL:
             "https://s3.amazonaws.com/assets.mlh.io/events/logos/000/212/477/thumb/brickhack100x100.png?1674064309",
         location: {
-            value: "NYU Tandon",
+            value: "Times Square",
             Icon: Location,
         },
         date: {
@@ -22,7 +22,7 @@ const dummyData = {
         },
         url: {
             value: {
-                url: "https://hacknyu.org/",
+                url: "",
                 text: "Go To Website",
             },
             Icon: Link,
@@ -30,27 +30,40 @@ const dummyData = {
     },
     flight_info: {
         source: {
-            value: "Tirane, AlbaniaS",
-            code: "ITA",
+            value: "Los Angeles International",
+            code: "LAX",
             Icon: Location,
         },
         destination: {
-            value: "NYC",
-            code: "MUC",
+            value: "Times Square",
+            code: "JFK",
             Icon: Location,
         },
         price: {
-            value: "10.99$",
+            value: "299.99$",
             Icon: Price,
         },
-
-        Carriers: "plane",
-        Duration: "123",
+        Carriers: "United Airlines",
+        Duration: "5.5",
     },
 };
 
 const Search = ({ hackData }) => {
     const [onHover, setOnHover] = useState(false);
+
+    const memoizedModal = useMemo(() => (
+        <Modal
+            active={onHover}
+            center={true}
+            color="transparent"
+            deactive={setOnHover.bind(null, false)}
+        >
+            <DetailCart
+                hackathon_info={hackData.hackathon_info}
+                flight_info={hackData.flight_info}
+            />
+        </Modal>
+    ), [onHover, hackData]);
 
     return (
         <>
@@ -85,17 +98,7 @@ const Search = ({ hackData }) => {
                     </div>
                 </li>
             </ul>
-            <Modal
-                active={onHover}
-                center={true}
-                color="transparent"
-                deactive={setOnHover.bind(null, false)}
-            >
-                <DetailCart
-                    hackathon_info={hackData.hackathon_info}
-                    flight_info={hackData.flight_info}
-                />
-            </Modal>
+            {memoizedModal}
         </>
     );
 };

@@ -42,7 +42,7 @@ const LocationEnterCart = (props) => {
                     <div>
                         <Sad size={40} />
                     </div>
-                    <span>No Avaliable Suggestion</span>
+                    <span>No Available Suggestions</span>
                     {/* <span>Press Enter to use this address</span> */}
                 </div>
             );
@@ -74,22 +74,18 @@ const LocationEnterCart = (props) => {
 
     const autoCompleteAddress = async (address) => {
         if (address === "") return;
-        //TO DO
-        //Replace with backend api later
         let result;
         try {
             result = await fetch(
-                `https://api.geoapify.com/v1/geocode/autocomplete?text=${address}&apiKey=${process.env.Geoapify_API_key}`
+                `https://api.geoapify.com/v1/geocode/autocomplete?text=${address}&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY}`
             );
+            const parsedAddress = parseAddress(await result.json());
+            if (parsedAddress.length === 0) setNoResult(true);
+            setAddressSuggestions(parsedAddress);
         } catch (e) {
-            console.log(e);
-            setIsLoading(false);
+            console.log("Autocomplete error:", e);
             setNoResult(true);
-            return;
         }
-        const parsedAddress = parseAddress(await result.json());
-        if (parsedAddress.length === 0) setNoResult(true);
-        setAddressSuggestions(parsedAddress);
         setIsLoading(false);
     };
 
@@ -123,10 +119,7 @@ const LocationEnterCart = (props) => {
                     onChange={onAddressChangeHandler}
                     placeholder="What's Your Location"
                     onKeyDown={(e) => {
-                        // if (e.key === "Enter")
-                        //     props.setAddress({
-                        //         plain: enteredAddress.value,
-                        //     });
+
                     }}
                 ></input>
             </div>

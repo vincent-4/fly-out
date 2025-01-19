@@ -1,38 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Flyout
 
-## Getting Started
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000)](#) [![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](#) [![NodeJS](https://img.shields.io/badge/Node.js-6DA55F?logo=node.js&logoColor=white)](#)
 
-First, run the development server:
+Flight-optimized hackathon discovery platform. Enables global hackathon search based on flight costs and availability. Built with modern web technologies and comprehensive monitoring systems.
 
+![Flyout](images/homePage.jpeg)
+
+## System Design
+
+Production-grade monitoring and deployment architecture. Next.js/React frontend with CSS Modules. Typography through Google Fonts. Full performance monitoring stack: k6, Prometheus, Grafana. Docker-based deployment with Compose orchestration.
+
+Testing framework handles 20 VUs for average load, 100 VUs for stress testing. Performance thresholds: sub-1% error rate, sub-500ms p95 response times. Real-time metrics visualization with 5-second dashboard updates.
+
+Core APIs:
+- Search functionality
+- Data aggregation
+- Flight integration
+- Hackathon data processing
+
+## Core Problem
+
+Standard hackathon selection process breaks down at scale. Manual flight comparison across multiple events becomes intractable. Price fluctuations require constant monitoring. Geographic constraints artificially limit participation. No existing solutions combine hackathon and flight data effectively.
+
+## Technical Implementation
+
+Architecture breakdown:
+- Frontend: React/Next.js 
+- Backend: Node.js
+- Data Sources:
+  - MLH Events API
+  - Flight pricing APIs
+  - Geolocation services
+
+System Components:
+1. Data aggregation layer
+2. Price optimization engine
+3. Search indexing system
+4. Real-time flight monitoring
+
+## Development Setup
+
+Required steps:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+npm i && npm run dev
+mv next.config.sample.js next.config.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Configuration requirements:
+1. API key acquisition
+2. next.config.js setup
+3. Environment variable configuration
+4. Database connection initialization
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Performance optimizations:
+- Flight data caching
+- Request throttling
+- API call optimization
+- Rate limit management

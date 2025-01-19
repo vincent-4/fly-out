@@ -10,97 +10,79 @@
     padding-top: 10px;
 }
 .conditionInput1 {
-    flex-basis: 50%;
+    flex: 2;
 }
 
-.conditionInput2 {
-    flex-basis: 25%;
-}
+.conditionInput2,
 .conditionInput3 {
-    flex-basis: 25%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+    flex: 1;
 }
 
 .label {
     display: block;
-    padding-right: 0;
-    margin-right: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
 }
 .datePick1 {
     height: 50px;
-    width: 80%;
-    margin-top: 10px;
-    /* padding:0 10px; */
-    box-sizing: border-box;
+    width: 100%;
+    margin-top: 0.25rem;
 }
-.datePick2 {
-    height: 50px;
-    width: 80%;
-    border: 1px solid #727483;
-    border-radius: 5px;
-    font-size: 16px;
-    border: 1px solid #727483;
-    padding: 0 10px;
-    font-family: "Open Sans", "Helvetica Neue", "Arial", "sans-serif";
-    margin-top: 10px;
-    /* padding:0 10px; */
-    box-sizing: border-box;
-}
-
+.datePick2,
 .datePick3 {
     height: 50px;
     width: 100%;
-    border: 1px solid #727483;
-    border-radius: 5px;
-    font-size: 16px;
-    border: 1px solid #727483;
-    font-family: "Open Sans", "Helvetica Neue", "Arial", "sans-serif";
-    margin-top: 10px;
-    padding: 0 10px;
-    box-sizing: border-box;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    padding: 0 1rem;
+    color: var(--text-primary);
+    background-color: var(--surface);
+    transition: border-color 0.15s ease;
 }
-.datePick2::-webkit-calendar-picker-indicator,
-.datePick3::-webkit-calendar-picker-indicator {
-    margin-right: 0;
+
+.datePick2:focus,
+.datePick3:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
 }
 
 .container {
     width: 100%;
-    margin: 0 auto;
     display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .header {
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 90px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 90px auto 0;
+    padding: 0 1rem;
 }
 
 .button {
-    background-color: #3662d8;
+    background-color: var(--primary-color);
     color: white;
-    border-radius: 8px;
-    min-width: 48px;
-    width: 150px;
-    height: 40px;
-    border-width: 0;
+    border-radius: 0.5rem;
+    padding: 0 1.5rem;
+    height: 44px;
+    border: none;
+    font-weight: 500;
+    font-size: 0.875rem;
     cursor: pointer;
-    border-style: solid;
-    margin-top: 15px;
-}
-.button:hover {
-    background-color: rgb(70, 70, 195);
+    transition: background-color 0.15s ease;
 }
 
-/* .datePick::before{
-    content:"End Date";
-    color:blue
-} */
+.button:hover:not(.disabled) {
+    background-color: var(--primary-hover);
+}
 
 .disabled {
-    background-color: grey !important;
-    cursor: default !important;
+    background-color: var(--secondary-color);
+    opacity: 0.7;
+    cursor: not-allowed;
 }

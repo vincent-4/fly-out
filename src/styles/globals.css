@@ -1,17 +1,53 @@
+@import url('https://unpkg.com/@catppuccin/palette/css/catppuccin.css');
+
 :root {
-    --main-bg-color: rgb(185, 141, 185);
+    /* Using Catppuccin Mocha (dark) theme */
+    --primary-color: var(--ctp-mocha-blue);
+    --primary-hover: var(--ctp-mocha-sapphire);
+    --secondary-color: var(--ctp-mocha-subtext0);
+    --accent-color: var(--ctp-mocha-sky);
+    --background: var(--ctp-mocha-base);
+    --surface: var(--ctp-mocha-crust);
+    --surface-alt: var(--ctp-mocha-mantle);
+    --text-primary: var(--ctp-mocha-text);
+    --text-secondary: var(--ctp-mocha-subtext1);
+    --border-color: var(--ctp-mocha-surface0);
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.25);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.35);
+    
+    /* Additional semantic colors */
+    --error: var(--ctp-mocha-red);
+    --success: var(--ctp-mocha-green);
+    --warning: var(--ctp-mocha-peach);
+    --info: var(--ctp-mocha-sky);
 }
+
 * {
     margin: 0;
     padding: 0;
-}
-body {
-    background-color: #f8f5f4;
-    font-family: "Open Sans", "Helvetica Neue", "Arial", "sans-serif";
+    box-sizing: border-box;
 }
 
-main{
-  min-width: 500px;
+body {
+    background-color: var(--background);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+main {
+    min-width: 500px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+input, button {
+    font-family: inherit;
 }
 
 

@@ -4,17 +4,20 @@ import Search from "../Components/Search";
 import SearchBar from "../Components/SearchBar";
 import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
+import Spinner from "../Components/Spinner"
 
 import { useState } from "react";
 import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+import PlaceHolder from "@/Components/PlaceHolder";
 
 const inter = Inter({ subsets: ["latin"] });
 
 import { Location, Date, Price, Link } from "../Components/UI/Icons";
-import PlaceHolder from "@/Components/PlaceHolder";
 
 export default function Home() {
     const [hackData, setHackData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const setHackDataHandler = (data) => {
         console.log(data);
@@ -33,7 +36,7 @@ export default function Home() {
             };
             hackObject["url"] = {
                 value: {
-                    url: "https://hacknyu.org",
+                    url: hackathon.hackathon.url || "#",
                     text: "Go To Website",
                 },
                 Icon: Link,
@@ -68,18 +71,20 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>HackByFlight</title>
+                <title>Flyout - Find Hackathons Worldwide</title>
+                <meta name="description" content="Discover hackathons based on flight availability and costs" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main>
+            <main className={inter.className}>
                 <Header />
-                <SearchBar setHackDate={setHackDataHandler} />
-                {hackData ? (
-                    hackData.map((data, index) => {
-                        return <Search hackData={data} key={index} />;
-                    })
-                ) : (
-                    <PlaceHolder />
-                )}
+                <SearchBar setHackDate={setHackDataHandler} setIsLoading={setIsLoading} />
+                {isLoading && <Spinner />}
+                {!isLoading && !hackData && <PlaceHolder />}
+                {!isLoading && hackData && hackData.map((data, index) => (
+                    <Search key={index} hackData={data} />
+                ))}
+                <Footer />
             </main>
         </>
     );

@@ -46,7 +46,7 @@ const LocationSearchBar = (props) => {
                     className={classes.address}
                     style={{ color: address.valid ? "black" : "grey" }}
                 >
-                    {address.valid ? convert(address) : "Enter Your Address"}
+                    {address.valid ? convert(address) : "What's your location?"}
                 </span>
                 <div
                     className={classes.cancel}

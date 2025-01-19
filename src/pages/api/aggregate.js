@@ -6,9 +6,11 @@ import {
 } from "@/utils/utility_backend";
 import data from "./test_data.json" assert { type: "JSON" };
 export default async function handler(req, res) {
+    if (req.method !== "POST") {
+        return res.status(405).json({ error: "Only POST method is accepted" });
+    }
+    
     const body = JSON.parse(req.body);
-    // if (req.method !== "POST")
-    //     return res.status(405).json({ error: "only accept POST method" });
 
     const hackathonData = await hackathon(body.date);
     console.log(hackathonData);
@@ -36,7 +38,7 @@ export default async function handler(req, res) {
     let sortedData = [];
     // 3 is just used for testing, in order to iterate through the whole list, we should be
     // doing hackathonData.length
-    for (let i = 0; i < 15 && i < hackathonData.length; i++) {
+    for (let i = 0; i < hackathonData.length; i++) {
         if (typeof hackathonData[i].date != "undefined") {
             const hackathonObject = hackathonData[i];
             const dateRange = hackathonObject.date;
